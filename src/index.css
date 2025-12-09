@@ -49,3 +49,30 @@ body {
 .ant-menu-submenu-selected > .ant-menu-submenu-title {
     color: #00bcd1 !important;
 }
+
+.ant-input {
+    color: white !important;
+}
+
+.ant-input::placeholder {
+    color: #6b7280 !important;
+}
+
+.bg-primary {
+    --tw-bg-opacity: 1;
+    background-color: #00bcd1 !important;
+    border: none !important;
+}
+.ant-otp-input {
+  /* border-bottom: 2px solid rgba(255,255,255,0.2); */
+  width: 70px;
+  height: 50px;
+  font-size: 25px;
+  background: #0A0B0D;
+}
+
+.ant-input-filled:focus-within {
+    outline: 0;
+    border-color: #0a0b0d;
+    background-color: #0A0B0D;
+}
