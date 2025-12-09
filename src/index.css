@@ -64,15 +64,39 @@ body {
     border: none !important;
 }
 .ant-otp-input {
-  /* border-bottom: 2px solid rgba(255,255,255,0.2); */
-  width: 70px;
-  height: 50px;
-  font-size: 25px;
-  background: #0A0B0D;
+    /* border-bottom: 2px solid rgba(255,255,255,0.2); */
+    width: 70px;
+    height: 50px;
+    font-size: 25px;
+    background: #0a0b0d;
 }
 
 .ant-input-filled:focus-within {
     outline: 0;
     border-color: #0a0b0d;
-    background-color: #0A0B0D;
+    background-color: #0a0b0d;
+}
+
+.ant-table {
+    background-color: transparent !important;
+    color: #f1f1f1 !important;
+}
+
+.ant-table-tbody > tr > td {
+    border-bottom: none !important;
+}
+
+.ant-table-tbody > tr:hover > td {
+    background-color: #0a0b0d !important;
+}
+
+:where(.css-dev-only-do-not-override-1g42iaw).ant-table-wrapper .ant-table-thead > tr > th,
+:where(.css-dev-only-do-not-override-1g42iaw).ant-table-wrapper .ant-table-thead > tr > td {
+    position: relative;
+    color: #00bcd1;
+    font-weight: 600;
+    text-align: start;
+    background: #00bcd126 !important;
+    border-bottom: none !important;
+    transition: background 0.2s ease;
 }

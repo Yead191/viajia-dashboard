@@ -1,7 +1,6 @@
-import { getFromLocalStorage } from '../../utils/local-storage';
 import Cookies from 'js-cookie';
 import { api } from '../api/baseApi';
-const resetToken = getFromLocalStorage('resetToken');
+
 const authSlice = api.injectEndpoints({
     endpoints: (builder) => ({
         otpVerify: builder.mutation({
@@ -59,7 +58,7 @@ const authSlice = api.injectEndpoints({
             query: (data) => {
                 return {
                     method: 'PATCH',
-                    url: '/user/me',
+                    url: '/user/profile',
                     body: data,
                 };
             },
@@ -68,7 +67,7 @@ const authSlice = api.injectEndpoints({
         profile: builder.query({
             query: () => {
                 return {
-                    url: '/user/me',
+                    url: '/user/profile',
                 };
             },
         }),

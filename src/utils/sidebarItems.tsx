@@ -16,6 +16,12 @@ const sidebarItems: TSidebarItem[] = [
         icon: <LuLayoutDashboard size={24} />,
     },
     {
+        key: 'users',
+        label: 'Users',
+        path: 'users',
+        icon: <PiUsers size={24} />,
+    },
+    {
         key: 'banners',
         label: 'Locker Management',
         path: 'banners',
@@ -33,12 +39,7 @@ const sidebarItems: TSidebarItem[] = [
     //     path: 'chefs',
     //     icon: <LuUserCog size={24} />,
     // },
-    {
-        key: 'users',
-        label: 'Users',
-        path: 'users',
-        icon: <PiUsers size={24} />,
-    },
+
     {
         key: 'subscriptions',
         label: 'Subscriptions',

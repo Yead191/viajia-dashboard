@@ -6,6 +6,8 @@ import HeaderTitle from '../../../components/shared/HeaderTitle';
 import { CiCircleInfo, CiLock, CiUnlock } from 'react-icons/ci';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
 import { User } from '../../../types/types';
+import { Search } from 'lucide-react';
+import { useGetUsersQuery } from '../../../redux/apiSlices/userSlice';
 
 const { Option } = Select;
 
@@ -159,6 +161,8 @@ export default function Users({ dashboard }: { dashboard?: boolean }) {
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const [isBlockModalVisible, setIsBlockModalVisible] = useState<boolean>(false);
     const [userToBlock, setUserToBlock] = useState<User | null>(null);
+    const { data: users } = useGetUsersQuery({});
+    console.log(users);
 
     const showUserDetails = (user: User) => {
         setSelectedUser(user);
@@ -311,14 +315,14 @@ export default function Users({ dashboard }: { dashboard?: boolean }) {
 
     return (
         <>
-            <div className="rounded-lg shadow-sm border border-gray-200 p-4">
+            <div className="rounded-lg shadow-sm bg-[#1C1C1E] pt-4 px-4 pb-2">
                 <div className="flex items-center justify-between mb-4">
-                    <HeaderTitle title="Customers" />
+                    <HeaderTitle title="Customers" className="" />
                     <Input
                         placeholder="Search"
-                        className=""
+                        className="bg-[#0A0B0D] rounded-lg border-0"
                         style={{ width: 280, height: 40 }}
-                        prefix={<i className="bi bi-search"></i>}
+                        prefix={<Search className="text-[#ABABAB]" />}
                     />
                 </div>
                 <ConfigProvider

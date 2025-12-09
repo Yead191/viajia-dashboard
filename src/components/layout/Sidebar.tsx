@@ -46,10 +46,9 @@ const Sidebar = () => {
     return (
         <div className="relative h-[calc(100vh-40px)] w-full bg-bg rounded-lg">
             <div className="flex flex-col h-[calc(100vh-40px)]">
-
-                <Link to="/" className='py-10'>
+                <Link to="/" className="py-10">
                     <div className="flex flex-col gap-3 items-center justify-center">
-                        <img src="/logo.svg" alt="" className="h-20" />
+                        <img src="/Logo.png" alt="" className="h-20" />
                     </div>
                 </Link>
 
