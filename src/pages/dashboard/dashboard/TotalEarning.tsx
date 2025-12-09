@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Select, Card } from 'antd';
+import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { Card, ConfigProvider, DatePicker } from 'antd';
 import { earningsData } from '../../../demo-data/home-data';
-
-const { Option } = Select;
+import { FaChevronDown } from 'react-icons/fa6';
 
 const CustomLegend = () => {
     return (
@@ -18,20 +17,39 @@ const CustomLegend = () => {
 
 const TotalEarning = () => {
     const [selectedYear, setSelectedYear] = useState('2025');
-
+    console.log(selectedYear);
     return (
         <div>
-            <Card className="rounded-lg shadow-sm border border-gray-200">
+            <Card className="rounded-lg shadow-sm bg-bg border-0">
                 <div className="flex justify-between items-center mb-4 gap-4">
-                    <h2 className="text-lg font-semibold">Key Activity</h2>
+                    <h2 className="text-lg font-semibold text-[#f1f1f1]">Key Activity</h2>
                     <div className="flex gap-2">
                         <CustomLegend />
                         {/* Year Dropdown */}
-                        <Select value={selectedYear} onChange={setSelectedYear} className="w-24">
-                            <Option value="2023">2023</Option>
-                            <Option value="2024">2024</Option>
-                            <Option value="2025">2025</Option>
-                        </Select>
+                        <ConfigProvider
+                            theme={{
+                                token: {
+                                    colorPrimary: '#00BCD1',
+                                    colorBgContainer: '#00BCD1',
+                                    colorBgElevated: '#00BCD1',
+                                    colorBorder: '#00BCD1',
+                                    colorText: '#fff',
+                                    colorTextPlaceholder: '#fff',
+                                    colorIcon: '#fff',
+                                },
+                            }}
+                        >
+                            <DatePicker
+                                className="!cursor-pointer"
+                                picker="year"
+                                suffixIcon={<FaChevronDown className="text-gray-500 text-sm" />}
+                                onChange={(_, dateString) => {
+                                    if (typeof dateString === 'string') {
+                                        setSelectedYear(dateString);
+                                    }
+                                }}
+                            />
+                        </ConfigProvider>
                     </div>
                 </div>
 
@@ -39,11 +57,11 @@ const TotalEarning = () => {
                     <AreaChart data={earningsData}>
                         <defs>
                             <linearGradient id="colorEarnings" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#00BCD1" stopOpacity={0.4} />
-                                <stop offset="95%" stopColor="#00BCD1" stopOpacity={0} />
+                                <stop offset="5%" stopColor="#00BCD1" stopOpacity={0.8} />
+                                <stop offset="95%" stopColor="#A8E8EF" stopOpacity={0.4} />
                             </linearGradient>
                         </defs>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                        {/* <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" /> */}
                         <XAxis dataKey="month" stroke="#999" style={{ fontSize: '12px' }} />
                         <YAxis stroke="#999" style={{ fontSize: '12px' }} tickFormatter={(value) => `${value}`} />
                         <Tooltip

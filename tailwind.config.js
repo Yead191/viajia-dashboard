@@ -5,6 +5,7 @@ export default {
         extend: {
             colors: {
                 primary: '#00BCD1',
+                subTitleColor: "#ABABAB", 
                 primaryText: '#F1F1F1',
                 secondaryText: '#7B7B7B',
                 textBlack: '#272728',

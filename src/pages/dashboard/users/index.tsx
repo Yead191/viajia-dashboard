@@ -8,6 +8,7 @@ import { MdOutlineDeleteOutline } from 'react-icons/md';
 import { User } from '../../../types/types';
 import { Search } from 'lucide-react';
 import { useGetUsersQuery } from '../../../redux/apiSlices/userSlice';
+import { Link } from 'react-router-dom';
 
 const { Option } = Select;
 
@@ -317,13 +318,17 @@ export default function Users({ dashboard }: { dashboard?: boolean }) {
         <>
             <div className="rounded-lg shadow-sm bg-[#1C1C1E] pt-4 px-4 pb-2">
                 <div className="flex items-center justify-between mb-4">
-                    <HeaderTitle title="Customers" className="" />
-                    <Input
-                        placeholder="Search"
-                        className="bg-[#0A0B0D] rounded-lg border-0"
-                        style={{ width: 280, height: 40 }}
-                        prefix={<Search className="text-[#ABABAB]" />}
-                    />
+                    <HeaderTitle title={dashboard ? 'All Users' : 'Users List'} className="" />
+                    {dashboard ? (
+                        <Link className='text-white' to="/dashboard/users">View All</Link>
+                    ) : (
+                        <Input
+                            placeholder="Search"
+                            className="bg-[#0A0B0D] rounded-lg border-0"
+                            style={{ width: 280, height: 40 }}
+                            prefix={<Search className="text-[#ABABAB]" />}
+                        />
+                    )}
                 </div>
                 <ConfigProvider
                     theme={{

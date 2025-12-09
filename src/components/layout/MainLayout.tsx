@@ -12,12 +12,12 @@ const MainLayout: React.FC = () => {
             </div>
 
             {/* main container with header */}
-            <div className="col-span-10 ">
+            <div className="col-span-10 space-y-4">
                 <div>
                     <DashboardHeader />
                 </div>
-                <div className="h-[calc(100vh-120px)] overflow-y-auto">
-                    <div className="h-full overflow-y-auto rounded-md pt-4 pr-2">
+                <div className="h-[calc(100vh-140px)] overflow-y-auto">
+                    <div className="h-full overflow-y-auto rounded-md pr-2">
                         <Outlet />
                     </div>
                 </div>
