@@ -5,19 +5,19 @@ import DashboardHeader from './DashboardHeader';
 
 const MainLayout: React.FC = () => {
     return (
-        <div className={`grid grid-cols-12`}>
-            <div className="col-span-12 ">
-                <DashboardHeader />
-            </div>
+        <div className={`grid grid-cols-12 gap-5 p-5`}>
             {/* side bar */}
-            <div className="col-span-2 h-[calc(100vh-97px)] overflow-x-hidden ">
+            <div className="col-span-2 overflow-x-hidden">
                 <Sidebar />
             </div>
 
             {/* main container with header */}
             <div className="col-span-10 ">
-                <div className="px-4 h-[calc(100vh-97px)]">
-                    <div className="h-full overflow-y-auto rounded-md pt-4">
+                <div>
+                    <DashboardHeader />
+                </div>
+                <div className="h-[calc(100vh-120px)] overflow-y-auto">
+                    <div className="h-full overflow-y-auto rounded-md pt-4 pr-2">
                         <Outlet />
                     </div>
                 </div>

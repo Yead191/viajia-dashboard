@@ -10,7 +10,7 @@ export default {
                 textBlack: '#272728',
                 shadeColor: '#F9F0EC',
                 overlay: '#F6F7F8',
-                bg: '#FFFDFB',
+                bg: '#1C1C1E',
             },
         },
     },

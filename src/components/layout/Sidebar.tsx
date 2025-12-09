@@ -44,9 +44,16 @@ const Sidebar = () => {
     };
 
     return (
-        <div className="relative h-[calc(100vh-100px)] w-full border-r border-gray-200">
-            <div className="flex flex-col h-[calc(100vh-97px)]">
-                <div className="flex-1 overflow-y-auto pb-12 ml-4">
+        <div className="relative h-[calc(100vh-40px)] w-full bg-bg rounded-lg">
+            <div className="flex flex-col h-[calc(100vh-40px)]">
+
+                <Link to="/" className='py-10'>
+                    <div className="flex flex-col gap-3 items-center justify-center">
+                        <img src="/logo.svg" alt="" className="h-20" />
+                    </div>
+                </Link>
+
+                <div className="flex-1 overflow-y-auto pb-12 mx-2">
                     <ConfigProvider
                         theme={{
                             token: {
