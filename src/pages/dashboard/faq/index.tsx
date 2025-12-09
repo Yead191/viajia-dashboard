@@ -80,7 +80,7 @@ const FAQ = () => {
         <ConfigProvider
             theme={{
                 token: {
-                    colorPrimary: '#C9961B',
+                    colorPrimary: '#00BCD1',
                 },
             }}
         >
@@ -94,7 +94,7 @@ const FAQ = () => {
                         icon={<PlusOutlined />}
                         onClick={() => setIsAddOpen(true)}
                         style={{
-                            background: '#C9961B',
+                            background: '#00BCD1',
                             border: 'none',
                             height: '40px',
                             display: 'flex',
@@ -111,7 +111,7 @@ const FAQ = () => {
                         <div key={item.id} className="flex justify-between items-start gap-4 border-b pb-4 mt-4">
                             {/* Icon */}
                             <div className="mt-3">
-                                <GoQuestion color="#C9961B" size={25} />
+                                <GoQuestion color="#00BCD1" size={25} />
                             </div>
 
                             {/* Text Section */}

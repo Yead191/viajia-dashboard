@@ -10,7 +10,7 @@ interface DeleteCategoryModalProps {
 
 const DeleteModal = ({ open, onCancel, onConfirm }: DeleteCategoryModalProps) => {
     return (
-        <ConfigProvider theme={{ token: { colorPrimary: '#C9961B' } }}>
+        <ConfigProvider theme={{ token: { colorPrimary: '#00BCD1' } }}>
             <Modal
                 title="Confirm Delete"
                 centered

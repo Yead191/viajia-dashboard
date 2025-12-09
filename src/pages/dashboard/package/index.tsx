@@ -85,12 +85,12 @@ const Subscription = () => {
                 {packages.map((pkg) => (
                     <div
                         key={pkg.id}
-                        className="max-w-[320px] bg-[#F4F4F4] py-4 px-6 border border-[#C9961B] rounded-lg"
+                        className="max-w-[320px] bg-[#F4F4F4] py-4 px-6 border border-[#00BCD1] rounded-lg"
                     >
                         {/* Delete Button */}
                         <div className="flex justify-end py-2">
                             <div
-                                className="cursor-pointer bg-[#C9961B] p-2 rounded-full"
+                                className="cursor-pointer bg-[#00BCD1] p-2 rounded-full"
                                 onClick={() => {
                                     setDeleteId(pkg.id);
                                     setShowDelete(true);
@@ -128,7 +128,7 @@ const Subscription = () => {
                                 width: '100%',
                                 height: '40px',
                                 marginTop: '20px',
-                                backgroundColor: '#C9961B',
+                                backgroundColor: '#00BCD1',
                                 color: 'white',
                                 fontWeight: 500,
                                 border: 'none',
@@ -157,7 +157,7 @@ const Subscription = () => {
                 <div className="p-6 text-center">
                     <p className="text-red-600 font-semibold text-lg">Are you sure?</p>
                     <p className="py-4 text-gray-700">Do you want to delete this package?</p>
-                    <button onClick={handleDelete} className="bg-[#C9961B] text-white px-6 py-2 rounded-md">
+                    <button onClick={handleDelete} className="bg-[#00BCD1] text-white px-6 py-2 rounded-md">
                         Confirm
                     </button>
                 </div>

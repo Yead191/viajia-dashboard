@@ -324,7 +324,7 @@ export default function Organizers({ dashboard }: { dashboard?: boolean }) {
                 <ConfigProvider
                     theme={{
                         token: {
-                            colorPrimary: '#C9961B',
+                            colorPrimary: '#00BCD1',
                         },
                     }}
                 >

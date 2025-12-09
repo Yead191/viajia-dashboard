@@ -336,7 +336,7 @@ const AppSliderList: React.FC = () => {
                             <ConfigProvider
                                 theme={{
                                     token: {
-                                        colorPrimary: '#C9961B',
+                                        colorPrimary: '#00BCD1',
                                     },
                                 }}
                             >
@@ -445,7 +445,7 @@ const AddOrEditModal: React.FC<AddEditProps> = ({ open, onClose, onSubmit, title
     const [name, setName] = useState<string>(defaultName);
 
     return (
-        <ConfigProvider theme={{ token: { colorPrimary: '#C9961B' } }}>
+        <ConfigProvider theme={{ token: { colorPrimary: '#00BCD1' } }}>
             <Modal open={open} onCancel={onClose} footer={false} centered width={450}>
                 <h2 className="text-lg font-semibold mb-4">{title}</h2>
 

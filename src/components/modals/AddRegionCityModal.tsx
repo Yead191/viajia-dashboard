@@ -50,7 +50,7 @@ const { Option } = Select;
         : `Add ${activeTab === 'region' ? 'Region' : 'City'}`;
 
     return (
-        <ConfigProvider theme={{ token: { colorPrimary: '#C9961B' } }}>
+        <ConfigProvider theme={{ token: { colorPrimary: '#00BCD1' } }}>
             <Modal
                 title={title}
                 open={open}

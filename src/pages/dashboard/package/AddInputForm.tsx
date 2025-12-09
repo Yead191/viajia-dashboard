@@ -31,7 +31,7 @@ const AddInputForm: React.FC<AddInputFormProps> = ({
     <ConfigProvider
       theme={{
         token: {
-          colorPrimary: "#C9961B",
+          colorPrimary: "#00BCD1",
         },
       }}
     >
@@ -89,7 +89,7 @@ const AddInputForm: React.FC<AddInputFormProps> = ({
           type="primary"
           htmlType="submit"
           className="w-full mt-5 h-11"
-          style={{ backgroundColor: "#C9961B" }}
+          style={{ backgroundColor: "#00BCD1" }}
         >
           Submit
         </Button>

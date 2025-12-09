@@ -464,7 +464,7 @@ export default function Refund({ dashboard }: { dashboard?: boolean }) {
                     <ConfigProvider
                         theme={{
                             token: {
-                                colorPrimary: '#C9961B',
+                                colorPrimary: '#00BCD1',
                             },
                         }}
                     >
@@ -479,7 +479,7 @@ export default function Refund({ dashboard }: { dashboard?: boolean }) {
                 <ConfigProvider
                     theme={{
                         token: {
-                            colorPrimary: '#C9961B',
+                            colorPrimary: '#00BCD1',
                         },
                     }}
                 >

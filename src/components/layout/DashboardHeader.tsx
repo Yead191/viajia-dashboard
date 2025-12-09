@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export default function DashboardHeader() {
     return (
         <div>
-            <div className="bg-bg px-4">
+            <div className="px-4 bg-[#1C1C1E]">
                 <div className="flex items-center justify-between gap-4">
                     {/* Left section - Greeting */}
                     <Link to="/">

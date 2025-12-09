@@ -16,7 +16,7 @@ export const StatCard: React.FC<{ icon: React.ReactNode; title: string; value: s
             <div
                 className={`w-16 h-16 rounded-lg flex items-center justify-center text-3xl ${
                     title === 'Total Lockers' && 'bg-[#095CC71A] text-[#095CC7]'
-                } ${title === 'Active Keys' && 'bg-[#C9961B1A] text-[#C9961B]'} ${
+                } ${title === 'Active Keys' && 'bg-[#00BCD11A] text-[#00BCD1]'} ${
                     title === 'Total Users' && 'bg-[#00A63E1A] text-[#00A63E]'
                 } ${title === 'Monthly Revenue' && 'bg-[#9810FA1A] text-[#9810FA]'}`}
             >

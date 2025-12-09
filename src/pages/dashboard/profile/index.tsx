@@ -233,7 +233,7 @@ export default function Profile() {
             <div className="max-w-2xl mx-auto">
                 <div className="bg-white rounded-xl shadow-lg overflow-hidden">
                     <div className="p-6 sm:p-8">
-                        <ConfigProvider theme={{ token: { colorPrimary: '#C9961B' } }}>
+                        <ConfigProvider theme={{ token: { colorPrimary: '#00BCD1' } }}>
                             <Tabs activeKey={activeTab} onChange={setActiveTab} items={tabItems} size="large" />
                         </ConfigProvider>
                     </div>

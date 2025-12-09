@@ -351,7 +351,7 @@ export default function Orders({ dashboard }: { dashboard?: boolean }) {
                     <ConfigProvider
                         theme={{
                             token: {
-                                colorPrimary: '#C9961B',
+                                colorPrimary: '#00BCD1',
                             },
                         }}
                     >
@@ -366,7 +366,7 @@ export default function Orders({ dashboard }: { dashboard?: boolean }) {
                 <ConfigProvider
                     theme={{
                         token: {
-                            colorPrimary: '#C9961B',
+                            colorPrimary: '#00BCD1',
                         },
                     }}
                 >

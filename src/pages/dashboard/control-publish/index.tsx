@@ -272,7 +272,7 @@ export default function ControlPublish({ dashboard }: { dashboard?: boolean }) {
 
             <ConfigProvider
                 theme={{
-                    token: { colorPrimary: '#C9961B' },
+                    token: { colorPrimary: '#00BCD1' },
                 }}
             >
                 <Tabs

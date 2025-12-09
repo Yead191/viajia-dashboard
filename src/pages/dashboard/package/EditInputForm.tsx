@@ -36,7 +36,7 @@ const EditInputForm: React.FC<EditProps> = ({ packageData, setOpenEditModal, han
     return (
         <ConfigProvider
             theme={{
-                token: { colorPrimary: '#C9961B' },
+                token: { colorPrimary: '#00BCD1' },
             }}
         >
             <Form form={form} onFinish={onFinish} layout="vertical">
@@ -86,7 +86,7 @@ const EditInputForm: React.FC<EditProps> = ({ packageData, setOpenEditModal, han
                     type="primary"
                     htmlType="submit"
                     className="w-full mt-5 h-11"
-                    style={{ backgroundColor: '#C9961B' }}
+                    style={{ backgroundColor: '#00BCD1' }}
                 >
                     Update
                 </Button>

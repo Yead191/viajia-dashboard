@@ -9,7 +9,7 @@ const CustomLegend = () => {
     return (
         <div className="flex gap-2 2xl:gap-4 text-sm text-[#757575] pr-4">
             <div className="flex items-center gap-1 whitespace-nowrap">
-                <div className="w-3 h-3 bg-[#C9961B] rounded-full" />
+                <div className="w-3 h-3 bg-[#00BCD1] rounded-full" />
                 Keys
             </div>
         </div>
@@ -39,8 +39,8 @@ const TotalEarning = () => {
                     <AreaChart data={earningsData}>
                         <defs>
                             <linearGradient id="colorEarnings" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#C9961B" stopOpacity={0.4} />
-                                <stop offset="95%" stopColor="#C9961B" stopOpacity={0} />
+                                <stop offset="5%" stopColor="#00BCD1" stopOpacity={0.4} />
+                                <stop offset="95%" stopColor="#00BCD1" stopOpacity={0} />
                             </linearGradient>
                         </defs>
                         <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
@@ -60,12 +60,12 @@ const TotalEarning = () => {
                             type="monotone"
                             name="Revenue"
                             dataKey="value"
-                            stroke="#C9961B"
+                            stroke="#00BCD1"
                             strokeWidth={2}
                             fillOpacity={1}
                             fill="url(#colorEarnings)"
                             activeDot={{ r: 6 }}
-                            // dot={{ fill: '#C9961B', r: 4 }}
+                            // dot={{ fill: '#00BCD1', r: 4 }}
                         />
                     </AreaChart>
                 </ResponsiveContainer>
