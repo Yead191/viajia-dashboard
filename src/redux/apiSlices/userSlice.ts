@@ -15,11 +15,17 @@ const userSlice = api.injectEndpoints({
                 },
             }),
         }),
+
         changeStatusUser: builder.mutation({
-            query: ({ id }: { id: string }) => {
+            query: ({ id, status }) => {
+                console.log(id, status);
                 return {
+                    url: `/user/change-status/${id}`,
                     method: 'PATCH',
-                    url: `/user/${id}`,
+                    credentials: 'include',
+                    body: {
+                        status,
+                    },
                 };
             },
         }),
