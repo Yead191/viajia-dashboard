@@ -157,6 +157,7 @@ export default function Users({ dashboard }: { dashboard?: boolean }) {
                         </Link>
                     ) : (
                         <Input
+                            value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             placeholder="Search"
                             className="bg-[#0A0B0D] rounded-lg border-0"

@@ -261,3 +261,15 @@ export interface BookingSummary {
     totalHotelBookings: number;
     totalCarrentalBookings: number;
 }
+
+export interface SubscriberType {
+    _id: string;
+    name: string;
+    price: number;
+    startDate: string;
+    endDate: string;
+    status: string;
+    user: BookingUser; // Reusing BookingUser as it has same structure (id, name, email, image)
+    txId: string;
+    package: string;
+}

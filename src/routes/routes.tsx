@@ -11,16 +11,13 @@ import TermsAndCondition from '../pages/dashboard/terms-and-condition';
 import Profile from '../pages/dashboard/profile';
 import Notification from '../pages/dashboard/notification';
 import PrivacyPolicy from '../pages/dashboard/privacy-policy';
-import Orders from '../pages/dashboard/orders';
-import Drivers from '../pages/dashboard/drivers';
-import Chefs from '../pages/dashboard/chefs';
 import AboutUs from '../pages/dashboard/about-us';
 import Disclaimer from '../pages/dashboard/disclaimer';
-import Category from '../pages/dashboard/category';
 import Transactions from '../pages/dashboard/transactions';
 import Bookings from '../pages/dashboard/Bookings';
 import FAQ from '../pages/dashboard/faq';
 import Subscription from '../pages/dashboard/package';
+import SubscriberList from '../pages/dashboard/subscriber-list';
 
 const router = createBrowserRouter([
     {
@@ -29,14 +26,11 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
             { path: '', element: <Dashboard /> },
-            { path: 'orders', element: <Orders /> },
-            { path: 'categories', element: <Category /> },
-            { path: 'bookings', element: <Bookings /> },
-            { path: 'chefs', element: <Chefs /> },
             { path: 'users', element: <Users /> },
-            { path: 'drivers', element: <Drivers /> },
-            { path: 'transactions', element: <Transactions /> },
+            { path: 'bookings', element: <Bookings /> },
             { path: 'subscriptions', element: <Subscription /> },
+            { path: 'subscriber-list', element: <SubscriberList /> },
+            { path: 'transactions', element: <Transactions /> },
             { path: 'profile', element: <Profile /> },
             { path: 'notification', element: <Notification /> },
             { path: 'privacy-policy', element: <PrivacyPolicy /> },
