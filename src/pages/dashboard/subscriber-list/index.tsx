@@ -1,5 +1,4 @@
 import { ConfigProvider, Input, Select, Table, Button } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
 import HeaderTitle from '../../../components/shared/HeaderTitle';
 import { CiCircleInfo } from 'react-icons/ci';
 import { useState } from 'react';
@@ -27,13 +26,13 @@ export default function SubscriberList({ dashboard }: { dashboard?: boolean }) {
     const subscribers: SubscriberType[] = subscribersData?.data || [];
     const paginationData = subscribersData?.pagination;
 
-    const columns: ColumnsType<SubscriberType> = [
+    const columns: any = [
         {
             title: 'S.ID',
             width: 100,
             dataIndex: 'key',
             key: 'key',
-            render: (_: any, record: SubscriberType, index: number) => {
+            render: (_: any, index: number) => {
                 // Use serial ID or index if key/id not present in short form
                 return <span className="text-white">#{index + 1 + (page - 1) * 10}</span>;
             },
@@ -60,18 +59,18 @@ export default function SubscriberList({ dashboard }: { dashboard?: boolean }) {
             title: 'Plan Name',
             dataIndex: 'name',
             key: 'name',
-            render: (text) => <span className="text-white">{text}</span>,
+            render: (text: any) => <span className="text-white">{text}</span>,
         },
         {
             title: 'Price',
             dataIndex: 'price',
             key: 'price',
-            render: (text) => <span className="text-[#00BCD1]">${text}</span>,
+            render: (text: any) => <span className="text-[#00BCD1]">${text}</span>,
         },
         {
             title: 'Date Range',
             key: 'date',
-            render: (_, record) => (
+            render: (_: any, record: any) => (
                 <div className="text-[#BABABA] text-sm">
                     <p>{moment(record.startDate).format('MMM DD, YYYY')}</p>
                     <p className="text-xs">to {moment(record.endDate).format('MMM DD, YYYY')}</p>
@@ -82,7 +81,7 @@ export default function SubscriberList({ dashboard }: { dashboard?: boolean }) {
             title: 'Status',
             dataIndex: 'status',
             key: 'status',
-            render: (status) => {
+            render: (status: any) => {
                 let color = '#52C41A';
                 let bg = '#D9F2CD';
 
@@ -107,7 +106,7 @@ export default function SubscriberList({ dashboard }: { dashboard?: boolean }) {
         {
             title: 'Action',
             key: 'action',
-            render: (_, record) => (
+            render: (_: any, record: any) => (
                 <div className="flex gap-2">
                     <Button
                         type="text"

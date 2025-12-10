@@ -1,5 +1,4 @@
 import { Button, ConfigProvider, Form, FormProps, Input } from 'antd';
-import { FieldNamesType } from 'antd/es/cascader';
 import { useNavigate } from 'react-router-dom';
 import { getFromLocalStorage } from '../../utils/local-storage';
 import Cookies from 'js-cookie';

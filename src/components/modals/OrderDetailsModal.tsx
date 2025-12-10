@@ -1,4 +1,4 @@
-import { Modal, Descriptions, Tag, Button } from 'antd';
+import { Modal, Descriptions, Tag } from 'antd';
 import moment from 'moment';
 import { SubscriberType } from '../../types/types';
 

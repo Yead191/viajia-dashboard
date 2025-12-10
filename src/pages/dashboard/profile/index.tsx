@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { EyeInvisibleOutlined, EyeOutlined, CameraOutlined } from '@ant-design/icons';
 import { Tabs, Button, Input, message, Avatar, Form, ConfigProvider } from 'antd';
+import { useUser } from '../../../provider/User';
+import { useUpdateProfileMutation } from '../../../redux/apiSlices/authSlice';
+import { toast } from 'sonner';
 
 // JSON input describing form fields for both profile and password change
 const profileFormFields = [
@@ -74,21 +77,25 @@ export default function Profile() {
         confirm: false,
     });
 
-    // Initial values for the forms
-    const initialProfileValues = {
-        name: 'Abdullah Al Noman',
-        email: 'abdullahalnoman1512@gmail.com',
-        contact: '+99 3487 4985',
-    };
+    const { user } = useUser();
+    const [updateProfile] = useUpdateProfileMutation();
     const initialPasswordValues = { current: '', new: '', confirm: '' };
 
     // Form Handlers
-    const handleProfileSubmit = (values: typeof initialProfileValues) => {
-        console.log(values);
-        // TODO: Submit form values to backend as needed
-        console.log(values);
+    const handleProfileSubmit = (values: any) => {
+        const formData = new FormData();
 
-        message.success('Profile updated successfully!');
+        Object.entries(values).forEach(([key, value]) => {
+            if (value !== undefined && value !== null) {
+                formData.append(key, value as string);
+            }
+        });
+
+        toast.promise(updateProfile(formData), {
+            loading: 'Updating profile...',
+            success: (res) => <b>{res.data.message}</b>,
+            error: (err) => <b>{err.data.message}</b>,
+        });
     };
 
     const handlePasswordSubmit = (values: typeof initialPasswordValues) => {
@@ -118,9 +125,10 @@ export default function Profile() {
                     <Form.Item
                         key={field.name}
                         name={field.name}
-                        label={<label className="block text-sm font-medium text-gray-700 mb-2">{field.label}</label>}
+                        label={<label className="block text-sm font-medium text-[#f1f1f1] mb-2">{field.label}</label>}
                         dependencies={field.dependencies}
                         rules={field.rules}
+                        className="custom-black-modal"
                     >
                         <div className="relative">
                             <Input
@@ -131,7 +139,7 @@ export default function Profile() {
                                 autoComplete="off"
                             />
                             <span
-                                className="absolute right-3 top-3 cursor-pointer text-gray-500 hover:text-gray-700"
+                                className="absolute right-3 top-3 cursor-pointer text-[#f1f1f1] hover:text-[#f1f1f1]"
                                 onClick={() => togglePasswordVisibility(field.name as 'current' | 'new' | 'confirm')}
                             >
                                 {showPasswords[field.name as keyof typeof showPasswords] ? (
@@ -149,7 +157,7 @@ export default function Profile() {
                 <Form.Item
                     key={field.name}
                     name={field.name}
-                    label={<label className="block text-sm font-medium text-gray-700 mb-2">{field.label}</label>}
+                    label={<label className="block text-sm font-medium text-[#f1f1f1] mb-2">{field.label}</label>}
                     rules={field.rules}
                 >
                     <Input
@@ -171,11 +179,7 @@ export default function Profile() {
                 <div className="space-y-6">
                     <div className="flex flex-col items-center ">
                         <div className="relative">
-                            <Avatar
-                                size={120}
-                                src="https://noman1.netlify.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FAbdullah_Al_Noman.c5d6012f.jpg&w=640&q=75"
-                                className="border-4 border-teal-50"
-                            />
+                            <Avatar size={120} src={user?.image} className="border-4 border-teal-50" />
                             <div className="absolute bottom-0 right-0 bg-primary rounded-full p-2 cursor-pointer hover:bg-primary transition">
                                 <CameraOutlined className="text-white text-lg" />
                             </div>
@@ -184,9 +188,10 @@ export default function Profile() {
                     <Form
                         name="profileForm"
                         layout="vertical"
-                        initialValues={initialProfileValues}
+                        initialValues={user}
                         onFinish={handleProfileSubmit}
                         requiredMark={false}
+                        className="custom-black-modal"
                     >
                         {renderFields(profileFormFields)}
                         <Form.Item>
@@ -231,7 +236,7 @@ export default function Profile() {
     return (
         <div className=" py-8 px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mx-auto">
-                <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div className="bg-[#1C1C1E] rounded-xl shadow-lg overflow-hidden">
                     <div className="p-6 sm:p-8">
                         <ConfigProvider theme={{ token: { colorPrimary: '#00BCD1' } }}>
                             <Tabs activeKey={activeTab} onChange={setActiveTab} items={tabItems} size="large" />

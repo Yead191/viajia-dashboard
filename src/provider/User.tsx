@@ -1,39 +1,25 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useProfileQuery } from '../redux/apiSlices/authSlice';
+import React, { createContext, useContext } from 'react';
+import { useGetProfileQuery } from '../redux/apiSlices/authSlice';
 
-type User = {
-  email: string;
-  image: string;
-  name: string;
-  password: string;
-  role: "SUPER_ADMIN" | "ADMIN"; 
-  status: "active" | "inactive"; 
+export type User = {
+    email: string;
+    image: string;
+    name: string;
+    role: 'SUPER_ADMIN' | 'ADMIN';
+    status: 'active' | 'inactive';
 };
 
-export const UserContext = React.createContext<User | null>(null);
+export const UserContext = createContext<any>({
+    user: null,
+    isLoading: true,
+});
 
-export const UserProvider = ({ children }: { children: React.ReactNode }): JSX.Element => {
-    const [user, setUser] = useState<User | null>(null);
-    const { data } = useProfileQuery({});
-    const profile = data?.data as User; // assert type if your API returns this
+export const UserProvider = ({ children }: { children: React.ReactNode }) => {
+    const { data, isLoading } = useGetProfileQuery(undefined);
 
-    useEffect(() => {
-        if (profile) {
-            setUser(profile);
-        }
-    }, [profile]);
+    const user = (data?.data as User) ?? null;
 
-    return (
-        <UserContext.Provider value={user}>
-            {children}
-        </UserContext.Provider>
-    )
-}
-
-export const useUser = (): User => {
-    const context = useContext(UserContext);
-    if (!context) {
-        throw new Error('useUser must be used within a UserProvider');
-    }
-    return context;
+    return <UserContext.Provider value={{ user, isLoading }}>{children}</UserContext.Provider>;
 };
+
+export const useUser = () => useContext(UserContext);
