@@ -1,17 +1,19 @@
 import { useEffect } from 'react';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, ConfigProvider, Form, Input } from 'antd';
+import { Button, ConfigProvider, Form, Input, Select } from 'antd';
 import { SubscriptionType } from '.';
+import { useEditPackageMutation } from '../../../redux/apiSlices/packageSlice';
+import { toast } from 'sonner';
 
 interface EditProps {
     packageData: SubscriptionType | null;
     setOpenEditModal: (v: boolean) => void;
-    handleEdit: (pkg: SubscriptionType) => void;
+    refetch: () => void;
 }
 
-const EditInputForm: React.FC<EditProps> = ({ packageData, setOpenEditModal, handleEdit }) => {
+const EditInputForm: React.FC<EditProps> = ({ packageData, setOpenEditModal, refetch }) => {
     const [form] = Form.useForm();
-
+    const [editPackage] = useEditPackageMutation();
     useEffect(() => {
         if (packageData) {
             form.setFieldsValue(packageData);
@@ -24,13 +26,24 @@ const EditInputForm: React.FC<EditProps> = ({ packageData, setOpenEditModal, han
         const updated: SubscriptionType = {
             ...packageData,
             name: values.name,
-            duration: values.duration,
+            recurring: values.recurring,
             price: Number(values.price),
             features: values.features,
+            status: values.status,
+            paymentId: values.paymentId,
+            referenceId: values.referenceId,
         };
-
-        handleEdit(updated);
-        setOpenEditModal(false);
+        toast.promise(editPackage({ id: packageData._id, data: updated }).unwrap(), {
+            loading: 'Updating package...',
+            success: (res) => {
+                refetch();
+                setOpenEditModal(false);
+                return <b>{res.message || 'Package updated successfully'}</b>;
+            },
+            error: (err) => {
+                return <b>{err.data.message || 'Failed to update package'}</b>;
+            },
+        });
     };
 
     return (
@@ -44,12 +57,32 @@ const EditInputForm: React.FC<EditProps> = ({ packageData, setOpenEditModal, han
                     <Input />
                 </Form.Item>
 
-                <Form.Item name="duration" label="Duration" rules={[{ required: true }]}>
-                    <Input />
+                <Form.Item name="recurring" label="Recurring Billing" rules={[{ required: true }]}>
+                    <Select placeholder="Select billing cycle">
+                        <Select.Option value="daily">Daily</Select.Option>
+                        <Select.Option value="weekly">Weekly</Select.Option>
+                        <Select.Option value="monthly">Monthly</Select.Option>
+                        <Select.Option value="yearly">Yearly</Select.Option>
+                    </Select>
                 </Form.Item>
 
                 <Form.Item name="price" label="Price" rules={[{ required: true }]}>
                     <Input type="number" />
+                </Form.Item>
+
+                <Form.Item name="status" label="Status" rules={[{ required: true }]}>
+                    <Select placeholder="Select status">
+                        <Select.Option value="active">Active</Select.Option>
+                        <Select.Option value="inactive">Inactive</Select.Option>
+                    </Select>
+                </Form.Item>
+
+                <Form.Item name="paymentId" label="Payment ID" rules={[{ required: true }]}>
+                    <Input />
+                </Form.Item>
+
+                <Form.Item name="referenceId" label="Reference ID" rules={[{ required: true }]}>
+                    <Input />
                 </Form.Item>
 
                 {/* Dynamic Feature Fields */}

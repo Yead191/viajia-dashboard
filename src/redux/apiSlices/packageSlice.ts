@@ -1,39 +1,41 @@
-import { api } from "../api/baseApi";
+import { api } from '../api/baseApi';
 
 const packageSlice = api.injectEndpoints({
     endpoints: (builder) => ({
         getPackages: builder.query({
             query: () => ({
-                url: "/verification-plan",
+                url: '/package',
             }),
-            providesTags: ["Package"],
+            providesTags: ['Package'],
         }),
         createPackage: builder.mutation({
             query: (data) => ({
-                method: "POST",
-                url: "/verification-plan",
+                method: 'POST',
+                url: '/package',
                 body: data,
+                credentials: 'include',
             }),
-            invalidatesTags: ["Package"],
+            invalidatesTags: ['Package'],
         }),
 
         editPackage: builder.mutation({
             query: ({ id, data }) => ({
-                method: "PATCH",
-                url: `/verification-plan/${id}`,
+                method: 'PATCH',
+                url: `/package/${id}`,
                 body: data,
             }),
-            invalidatesTags: ["Package"],
+            invalidatesTags: ['Package'],
         }),
 
         deletePackage: builder.mutation({
             query: ({ id }) => ({
-                method: "DELETE",
-                url: `/verification-plan/${id}`,
+                method: 'DELETE',
+                url: `/package/${id}`,
             }),
-            invalidatesTags: ["Package"],
+            invalidatesTags: ['Package'],
         }),
     }),
 });
 
-export const { useGetPackagesQuery, useCreatePackageMutation, useEditPackageMutation, useDeletePackageMutation } = packageSlice;
+export const { useGetPackagesQuery, useCreatePackageMutation, useEditPackageMutation, useDeletePackageMutation } =
+    packageSlice;
