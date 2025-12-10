@@ -156,10 +156,16 @@ const Subscription = () => {
             </Modal>
 
             {/* Delete Modal */}
-            <Modal centered open={showDelete} onCancel={() => setShowDelete(false)} footer={false}>
+            <Modal
+                className="custom-black-modal"
+                centered
+                open={showDelete}
+                onCancel={() => setShowDelete(false)}
+                footer={false}
+            >
                 <div className="p-6 text-center">
                     <p className="text-red-600 font-semibold text-lg">Are you sure?</p>
-                    <p className="py-4 text-gray-700">Do you want to delete this package?</p>
+                    <p className="py-4 text-white/90">Do you want to delete this package?</p>
                     <button onClick={handleDelete} className="bg-[#00BCD1] text-white px-6 py-2 rounded-md">
                         Confirm
                     </button>

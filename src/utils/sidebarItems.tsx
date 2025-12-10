@@ -4,9 +4,9 @@ import { LuClipboardList, LuLayoutDashboard } from 'react-icons/lu';
 import { TbBook } from 'react-icons/tb';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { FaRegCircleQuestion } from 'react-icons/fa6';
-import { GiKeyring, GiMoneyStack } from 'react-icons/gi';
 import { PiUsers } from 'react-icons/pi';
 import { LiaCcMastercard } from 'react-icons/lia';
+import { CalendarCheck, Users } from 'lucide-react';
 
 const sidebarItems: TSidebarItem[] = [
     {
@@ -22,10 +22,10 @@ const sidebarItems: TSidebarItem[] = [
         icon: <PiUsers size={24} />,
     },
     {
-        key: 'banners',
-        label: 'Locker Management',
-        path: 'banners',
-        icon: <GiKeyring size={24} />,
+        key: 'bookings',
+        label: 'Bookings',
+        path: 'bookings',
+        icon: <CalendarCheck size={24} />,
     },
     // {
     //     key: 'categories',
@@ -53,10 +53,10 @@ const sidebarItems: TSidebarItem[] = [
     //     icon: <LuUserCheck size={24} />,
     // },
     {
-        key: 'orders',
-        label: 'Payments',
-        path: 'orders',
-        icon: <GiMoneyStack size={24} />,
+        key: 'subscriber-list',
+        label: 'Subscriber List',
+        path: 'subscriber-list',
+        icon: <Users size={24} />,
     },
     {
         key: 'settings',

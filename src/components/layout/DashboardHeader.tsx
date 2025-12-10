@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 export default function DashboardHeader() {
     return (
         <div>
-            <div className="px-4 bg-[#1C1C1E] h-20 rounded-lg">
-                <div className="flex items-center justify-end gap-4">
+            <div className="px-4 bg-[#1C1C1E] h-20 rounded-lg flex items-center justify-end">
+                <div className="gap-4">
                     {/* Right section - Actions */}
                     <div className="flex items-center space-x-2 sm:space-x-4">
                         {/* Notifications */}

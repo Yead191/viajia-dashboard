@@ -235,3 +235,41 @@ export interface LockerType {
     lastActivity: string;
     deliveryStatus: 'active' | 'maintenance' | 'offline';
 }
+
+export interface BookingUser {
+    _id: string;
+    name: string;
+    email: string;
+    image: string;
+}
+
+export interface BookingType {
+    _id: string;
+    bookingId: string;
+    user: BookingUser;
+    hotelId?: string;
+    hotelName?: string;
+    airlineName?: string;
+    checkIn: string;
+    checkOut: string;
+    totalPrice: string;
+    type: 'hotel' | 'flight' | 'car_rental';
+}
+
+export interface BookingSummary {
+    totalFlightBookings: number;
+    totalHotelBookings: number;
+    totalCarrentalBookings: number;
+}
+
+export interface SubscriberType {
+    _id: string;
+    name: string;
+    price: number;
+    startDate: string;
+    endDate: string;
+    status: string;
+    user: BookingUser; // Reusing BookingUser as it has same structure (id, name, email, image)
+    txId: string;
+    package: string;
+}

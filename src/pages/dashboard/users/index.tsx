@@ -18,7 +18,7 @@ export default function Users({ dashboard }: { dashboard?: boolean }) {
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [page, setPage] = useState<number>(1);
 
-    console.log(userToBlock);
+    // console.log(userToBlock);
     const {
         data: usersData,
         isLoading,
@@ -157,6 +157,7 @@ export default function Users({ dashboard }: { dashboard?: boolean }) {
                         </Link>
                     ) : (
                         <Input
+                            value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             placeholder="Search"
                             className="bg-[#0A0B0D] rounded-lg border-0"
