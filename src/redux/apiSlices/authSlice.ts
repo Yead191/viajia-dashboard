@@ -64,12 +64,13 @@ const authSlice = api.injectEndpoints({
             },
         }),
 
-        profile: builder.query({
-            query: () => {
-                return {
-                    url: '/user/profile',
-                };
-            },
+        getProfile: builder.query({
+            query: () => ({
+                url: '/user/profile',
+                method: 'GET',
+                credentials: 'include',
+            }),
+            providesTags: ['profile'],
         }),
     }),
 });
@@ -81,5 +82,5 @@ export const {
     useResetPasswordMutation,
     useChangePasswordMutation,
     useUpdateProfileMutation,
-    useProfileQuery,
+    useGetProfileQuery,
 } = authSlice;

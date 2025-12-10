@@ -1,7 +1,9 @@
 import { FiBell } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import { useUser } from '../../provider/User';
 
 export default function DashboardHeader() {
+    const { user } = useUser();
     return (
         <div>
             <div className="px-4 bg-[#1C1C1E] h-20 rounded-lg flex items-center justify-end">
@@ -11,26 +13,28 @@ export default function DashboardHeader() {
                         {/* Notifications */}
                         <Link to="/notification">
                             <button className="relative p-2 text-[#223047] hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors">
-                                <FiBell className="h-6 w-6" />
+                                <FiBell className="h-6 w-6 text-[#00ABBE]" />
                                 <span className="absolute -top-1 -right-0 flex items-center justify-center bg-primary text-white text-xs font-semibold rounded-full w-6 h-6 shadow-md border-2 border-white">
                                     2
                                 </span>
                             </button>
                         </Link>
                         {/* Profile */}
-                        <div className="flex items-center space-x-3">
-                            <Link to="/profile">
+                        <Link to="/profile">
+                            <div className="flex items-center space-x-3">
                                 <img
-                                    src="https://noman1.netlify.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FAbdullah_Al_Noman.c5d6012f.jpg&w=640&q=75"
+                                    src={user?.image}
                                     alt="Profile"
                                     className="w-8 h-8 rounded-full object-cover cursor-pointer"
                                 />
-                            </Link>
-                            <div className="flex flex-col">
-                                <span className="text-sm sm:text-base font-semibold text-gray-900">Administrator</span>
-                                <span className="text-xs sm:text-sm text-gray-400">Super Admin</span>
+                                <div className="flex flex-col">
+                                    <span className="text-sm sm:text-base font-semibold text-[#f1f1f1]">
+                                        {user?.name}
+                                    </span>
+                                    <span className="text-xs sm:text-sm text-[#f1f1f1]/80">{user?.role}</span>
+                                </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                 </div>
             </div>

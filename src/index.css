@@ -178,3 +178,7 @@ body {
 .ant-select-item-option-selected {
     background-color: #111827 !important;
 }
+.jodit-container:not(.jodit_inline) {
+    background-color: #1c1c1e !important;
+    border: none !important;
+}
