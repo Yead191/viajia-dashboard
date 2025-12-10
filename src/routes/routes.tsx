@@ -18,7 +18,7 @@ import AboutUs from '../pages/dashboard/about-us';
 import Disclaimer from '../pages/dashboard/disclaimer';
 import Category from '../pages/dashboard/category';
 import Transactions from '../pages/dashboard/transactions';
-import AppSliderList from '../pages/dashboard/banners';
+import Bookings from '../pages/dashboard/Bookings';
 import FAQ from '../pages/dashboard/faq';
 import Subscription from '../pages/dashboard/package';
 
@@ -30,8 +30,8 @@ const router = createBrowserRouter([
         children: [
             { path: '', element: <Dashboard /> },
             { path: 'orders', element: <Orders /> },
-            { path: 'banners', element: <AppSliderList /> },
             { path: 'categories', element: <Category /> },
+            { path: 'bookings', element: <Bookings /> },
             { path: 'chefs', element: <Chefs /> },
             { path: 'users', element: <Users /> },
             { path: 'drivers', element: <Drivers /> },
