@@ -26,6 +26,7 @@ export const StatCard: React.FC<{ icon: React.ReactNode; title: string; value: s
 );
 
 const App: React.FC = () => {
+    
     return (
         <div>
             {/* Stats Cards */}

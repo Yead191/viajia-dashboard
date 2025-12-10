@@ -83,7 +83,7 @@ const Sidebar = () => {
                     </ConfigProvider>
                 </div>
 
-                <div className="py-3 ps-4 absolute bottom-0 w-full ">
+                <div className="py-3 ps-4 absolute bottom-5 w-full ">
                     <button
                         onClick={() => {
                             navigate('/login');
