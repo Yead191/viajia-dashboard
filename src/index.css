@@ -100,3 +100,78 @@ body {
     border-bottom: none !important;
     transition: background 0.2s ease;
 }
+
+.custom-black-modal .ant-modal-content {
+    background: #1c1c1e !important;
+
+    color: #ffffff !important;
+
+    box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.25) !important;
+
+    border: 1px solid #3b3b3b !important;
+}
+
+.ant-modal .ant-modal-close {
+    color: #ffffff !important;
+}
+
+.custom-black-modal .ant-input {
+    color: white !important;
+    background: #0a0b0d !important ;
+    height: 40px !important;
+    border: none !important;
+}
+
+.custom-black-modal .ant-input::placeholder {
+    color: #ababab !important;
+}
+.custom-black-modal .ant-form-item-label > label {
+    color: #f1f1f1 !important;
+}
+/* custom select */
+.custom-black-modal .ant-select-selector {
+    border: none !important;
+    background: #0a0b0d !important;
+    color: #f1f1f1 !important;
+    /* height: 40px !important; */
+}
+
+/* Placeholder text */
+.custom-black-modal .ant-select-selection-placeholder {
+    color: #9ca3af !important;
+}
+
+/* Selected value text */
+.custom-black-modal .ant-select-selection-item {
+    color: #ffffff !important;
+}
+
+/* Arrow icon */
+.custom-black-modal .ant-select-arrow {
+    color: #9ca3af !important;
+}
+
+/* Dropdown menu */
+.ant-select-dropdown {
+    background-color: #0a0b0d !important;
+}
+
+/* Dropdown options */
+.ant-select-item {
+    color: #ffffff !important;
+}
+
+/* Hover option */
+.ant-select-item-option-active {
+    background-color: #1f2933 !important;
+}
+
+/* Selected option */
+.ant-select-item-option-selected {
+    background-color: #111827 !important;
+}
+
+.ant-empty-image {
+    background: #0a0b0d !important;
+    color: white !important;
+}
