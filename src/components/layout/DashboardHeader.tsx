@@ -2,12 +2,23 @@ import { FiBell } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { useGetProfileQuery } from '../../redux/apiSlices/authSlice';
 import { imageUrl } from '../../redux/api/baseApi';
+import { useGetNotificationQuery } from '../../redux/apiSlices/notificationSlice';
+import { useEffect, useMemo } from 'react';
+import { io } from 'socket.io-client';
 
 export default function DashboardHeader() {
     // const { user } = useUser();
+    const socket = useMemo(() => io(imageUrl), []);
+
     const { data: user } = useGetProfileQuery(undefined);
     console.log(user);
-
+    const { data: notificationData, refetch } = useGetNotificationQuery({});
+    // socket implementation
+    useEffect(() => {
+        socket.on(`sendNotification::${user?.data?._id}`, () => {
+            refetch();
+        });
+    }, [user?.data?._id]);
     return (
         <div>
             <div className="px-4 bg-[#1C1C1E] h-20 rounded-lg flex items-center justify-end">
@@ -16,10 +27,10 @@ export default function DashboardHeader() {
                     <div className="flex items-center space-x-2 sm:space-x-4">
                         {/* Notifications */}
                         <Link to="/notification">
-                            <button className="relative p-2 text-[#223047] hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors">
+                            <button className="relative p-2 text-[#223047]  hover:bg-primary/60 rounded-full transition-colors">
                                 <FiBell className="h-6 w-6 text-[#00ABBE]" />
                                 <span className="absolute -top-1 -right-0 flex items-center justify-center bg-primary text-white text-xs font-semibold rounded-full w-6 h-6 shadow-md border-2 border-white">
-                                    2
+                                    {notificationData?.data?.unread || 0}
                                 </span>
                             </button>
                         </Link>
