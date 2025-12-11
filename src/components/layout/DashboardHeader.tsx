@@ -1,9 +1,13 @@
 import { FiBell } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import { useUser } from '../../provider/User';
+import { useGetProfileQuery } from '../../redux/apiSlices/authSlice';
+import { imageUrl } from '../../redux/api/baseApi';
 
 export default function DashboardHeader() {
-    const { user } = useUser();
+    // const { user } = useUser();
+    const { data: user } = useGetProfileQuery(undefined);
+    console.log(user);
+
     return (
         <div>
             <div className="px-4 bg-[#1C1C1E] h-20 rounded-lg flex items-center justify-end">
@@ -23,15 +27,15 @@ export default function DashboardHeader() {
                         <Link to="/profile">
                             <div className="flex items-center space-x-3">
                                 <img
-                                    src={user?.image}
+                                    src={imageUrl + user?.data?.image}
                                     alt="Profile"
                                     className="w-8 h-8 rounded-full object-cover cursor-pointer"
                                 />
                                 <div className="flex flex-col">
                                     <span className="text-sm sm:text-base font-semibold text-[#f1f1f1]">
-                                        {user?.name}
+                                        {user?.data?.name}
                                     </span>
-                                    <span className="text-xs sm:text-sm text-[#f1f1f1]/80">{user?.role}</span>
+                                    <span className="text-xs sm:text-sm text-[#f1f1f1]/80">{user?.data?.role}</span>
                                 </div>
                             </div>
                         </Link>

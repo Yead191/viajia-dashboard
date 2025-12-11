@@ -4,16 +4,18 @@ import sidebarItems from '../../utils/sidebarItems';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ReactNode, useState } from 'react';
 import { LogOut } from 'lucide-react';
+import ConfirmLogoutModal from '../modals/ConfirmLogoutModal';
+import Cookies from 'js-cookie';
+import { toast } from 'sonner';
 
 const Sidebar = () => {
     const location = useLocation();
     const [openKeys, setOpenKeys] = useState<string[]>([]);
     const navigate = useNavigate();
-
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
     const handleOpenChange = (keys: string[]) => {
         setOpenKeys(keys);
     };
-
     const getIcon = (icon: ReactNode | string) => {
         if (typeof icon === 'string') {
             return <img src={icon} className="w-6" alt="icon" />;
@@ -43,6 +45,12 @@ const Sidebar = () => {
         });
     };
 
+    const handleLogout = () => {
+        Cookies.remove('accessToken');
+        Cookies.remove('refreshToken');
+        toast.success('Logout successfully');
+        navigate('/login');
+    };
     return (
         <div className="relative h-[calc(100vh-40px)] w-full bg-bg rounded-lg">
             <div className="flex flex-col h-[calc(100vh-40px)]">
@@ -85,9 +93,7 @@ const Sidebar = () => {
 
                 <div className="py-3 ps-4 absolute bottom-5 w-full ">
                     <button
-                        onClick={() => {
-                            navigate('/login');
-                        }}
+                        onClick={() => setShowLogoutModal(true)}
                         className="w-full flex items-center gap-3 px-4 text-[#F44336] font-semibold rounded-md transition"
                     >
                         <LogOut size={20} />
@@ -95,6 +101,11 @@ const Sidebar = () => {
                     </button>
                 </div>
             </div>
+            <ConfirmLogoutModal
+                open={showLogoutModal}
+                onCancel={() => setShowLogoutModal(false)}
+                onConfirm={handleLogout}
+            />
         </div>
     );
 };

@@ -4,29 +4,23 @@ import { PlusOutlined } from '@ant-design/icons';
 import { GoQuestion } from 'react-icons/go';
 import { CiEdit } from 'react-icons/ci';
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import {
+    useCreateFaqMutation,
+    useDeleteFaqMutation,
+    useGetFaqQuery,
+    useUpdateFaqMutation,
+} from '../../../redux/apiSlices/settingSlice';
+import { toast } from 'sonner';
 
 interface FaqItem {
-    id: string;
+    _id: string;
     question: string;
+    type: string;
     answer: string;
 }
 
-const initialFaqs: FaqItem[] = [
-    {
-        id: '1',
-        question: 'How do I create an account',
-        answer: 'You can create an account by signing up with your email address.',
-    },
-    {
-        id: '2',
-        question: 'How can I reset my password',
-        answer: 'Click on ‘Forgot Password’ and follow the steps.',
-    },
-];
-
 const FAQ = () => {
-    const [faqs, setFaqs] = useState<FaqItem[]>(initialFaqs);
-
+    const [activeTab, setActiveTab] = useState('overview');
     const [isAddOpen, setIsAddOpen] = useState(false);
     const [isEditOpen, setIsEditOpen] = useState(false);
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -34,20 +28,40 @@ const FAQ = () => {
     const [selectedFaq, setSelectedFaq] = useState<FaqItem | null>(null);
     const [deleteId, setDeleteId] = useState<string>('');
 
+    // api calls
+    const { data: responseData, isLoading } = useGetFaqQuery({ type: activeTab });
+    // Assuming API returns array directly or { data: [] }, adjusting based on standard RTK Query patterns often used.
+    // However, looking at the slice, it just returns content.
+    // If previous code was `faqs.map`, it implies `data` was the array.
+    const faqs: FaqItem[] = responseData?.data || responseData || [];
+
+    const [createFaq] = useCreateFaqMutation();
+    const [updateFaq] = useUpdateFaqMutation();
+    const [deleteFaq] = useDeleteFaqMutation();
+
     const [addForm] = Form.useForm();
     const [editForm] = Form.useForm();
 
+    const tabs = [
+        { key: 'overview', label: 'Overview' },
+        { key: 'flight', label: 'Flight' },
+        { key: 'hotel', label: 'Hotel' },
+    ];
+
     // ADD
-    const handleAdd = () => {
-        addForm.validateFields().then((values) => {
-            const newItem: FaqItem = {
-                id: String(Date.now()),
-                ...values,
-            };
-            setFaqs([...faqs, newItem]);
-            addForm.resetFields();
-            setIsAddOpen(false);
-        });
+    const handleAdd = async () => {
+        try {
+            const values = await addForm.validateFields();
+            const toastId = toast.loading('Creating FAQ...');
+            const res = await createFaq({ ...values, type: activeTab }).unwrap();
+            if (res) {
+                toast.success('FAQ created successfully', { id: toastId });
+                setIsAddOpen(false);
+                addForm.resetFields();
+            }
+        } catch (error) {
+            toast.error('Failed to create FAQ');
+        }
     };
 
     // EDIT
@@ -57,12 +71,21 @@ const FAQ = () => {
         setIsEditOpen(true);
     };
 
-    const handleEdit = () => {
-        editForm.validateFields().then((values) => {
+    const handleEdit = async () => {
+        try {
+            const values = await editForm.validateFields();
             if (!selectedFaq) return;
-            setFaqs(faqs.map((faq) => (faq.id === selectedFaq.id ? { ...faq, ...values } : faq)));
-            setIsEditOpen(false);
-        });
+            const toastId = toast.loading('Updating FAQ...');
+            const res = await updateFaq({ ...values, id: selectedFaq._id, type: activeTab }).unwrap();
+            if (res) {
+                toast.success('FAQ updated successfully', { id: toastId });
+                setIsEditOpen(false);
+                editForm.resetFields();
+                setSelectedFaq(null);
+            }
+        } catch (error) {
+            toast.error('Failed to update FAQ');
+        }
     };
 
     // DELETE
@@ -71,9 +94,18 @@ const FAQ = () => {
         setIsDeleteOpen(true);
     };
 
-    const handleDelete = () => {
-        setFaqs(faqs.filter((faq) => faq.id !== deleteId));
-        setIsDeleteOpen(false);
+    const handleDelete = async () => {
+        try {
+            const toastId = toast.loading('Deleting FAQ...');
+            const res = await deleteFaq(deleteId).unwrap();
+            if (res) {
+                toast.success('FAQ deleted successfully', { id: toastId });
+                setIsDeleteOpen(false);
+                setDeleteId('');
+            }
+        } catch (error) {
+            toast.error('Failed to delete FAQ');
+        }
     };
 
     return (
@@ -82,84 +114,144 @@ const FAQ = () => {
                 token: {
                     colorPrimary: '#00BCD1',
                 },
+                components: {
+                    Modal: {
+                        contentBg: '#1f1f1f',
+                        headerBg: '#1f1f1f',
+                        titleColor: 'white',
+                    },
+                    Input: {
+                        colorBgContainer: '#2a2a2a',
+                        colorText: 'white',
+                        colorBorder: '#444',
+                        colorTextPlaceholder: '#888',
+                    },
+                },
             }}
         >
-            <div className="bg-white h-full px-3 py-2 rounded-lg">
-                {/* Header */}
-                <div className="flex justify-between items-center px-4 py-3">
-                    <h3 className="text-[#757575] text-[18px] font-medium">FAQ</h3>
+            <div className="h-full px-3 py-2 rounded-lg">
+                {/* Header & Tabs */}
+                <div className="flex flex-col gap-4 px-4 py-3">
+                    <div className="flex justify-between items-center">
+                        <h3 className="text-[#eee] text-[20px] font-medium">FAQ</h3>
+                        <Button
+                            type="primary"
+                            icon={<PlusOutlined />}
+                            onClick={() => setIsAddOpen(true)}
+                            style={{
+                                background: '#00BCD1',
+                                border: 'none',
+                                height: '40px',
+                                display: 'flex',
+                                alignItems: 'center',
+                            }}
+                        >
+                            Add FAQ
+                        </Button>
+                    </div>
 
-                    <Button
-                        type="primary"
-                        icon={<PlusOutlined />}
-                        onClick={() => setIsAddOpen(true)}
-                        style={{
-                            background: '#00BCD1',
-                            border: 'none',
-                            height: '40px',
-                            display: 'flex',
-                            alignItems: 'center',
-                        }}
-                    >
-                        Add FAQ
-                    </Button>
+                    {/* Custom Tabs */}
+                    <div className="flex items-center gap-8 border-b border-gray-700 mt-2">
+                        {tabs.map((tab) => (
+                            <div
+                                key={tab.key}
+                                onClick={() => setActiveTab(tab.key)}
+                                className={`pb-2 cursor-pointer text-base font-medium transition-all duration-300 relative ${
+                                    activeTab === tab.key ? 'text-[#00BCD1]' : 'text-[#757575] hover:text-[#00BCD1]'
+                                }`}
+                            >
+                                {tab.label}
+                                {activeTab === tab.key && (
+                                    <div className="absolute bottom-0 left-0 w-full h-[2px] bg-[#00BCD1]" />
+                                )}
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
-                {/* LIST VIEW - SAME DESIGN AS YOUR ORIGINAL */}
-                <div className="bg-white pb-6 px-4 rounded-md">
-                    {faqs.map((item) => (
-                        <div key={item.id} className="flex justify-between items-start gap-4 border-b pb-4 mt-4">
-                            {/* Icon */}
-                            <div className="mt-3">
-                                <GoQuestion color="#00BCD1" size={25} />
-                            </div>
+                {/* LIST VIEW */}
+                <div className="pb-6 px-4 rounded-md mt-4">
+                    {isLoading ? (
+                        <div className="text-white">Loading...</div>
+                    ) : (
+                        faqs?.map((item) => (
+                            <div
+                                key={item._id}
+                                className="flex justify-between items-start gap-4 border-b border-[#333] pb-4 mt-4"
+                            >
+                                {/* Icon */}
+                                <div className="mt-3">
+                                    <GoQuestion color="#00BCD1" size={25} />
+                                </div>
 
-                            {/* Text Section */}
-                            <div className="w-full">
-                                <p className="text-base font-medium border-b py-2 px-4 rounded-lg bg-[#f8f8f8] flex items-center gap-8 text-[#757575]">
-                                    {item.question} ?
-                                </p>
+                                {/* Text Section */}
+                                <div className="w-full">
+                                    <p className="text-base font-medium py-2 px-4 rounded-lg bg-[#1C1C1E] flex items-center gap-8 text-[#ccc]">
+                                        {item.question}
+                                    </p>
 
-                                <div className="flex items-start gap-2 py-2 px-4 rounded-lg mt-3">
-                                    <p className="text-[#757575] leading-[24px]">{item.answer}</p>
+                                    <div className="flex items-start gap-2 py-2 px-4 rounded-lg mt-3">
+                                        <p className="text-[#999] leading-[24px]">{item.answer}</p>
+                                    </div>
+                                </div>
+
+                                {/* Action Buttons */}
+                                <div className="flex flex-col gap-2 mt-2">
+                                    <CiEdit
+                                        size={26}
+                                        onClick={() => openEdit(item)}
+                                        className="cursor-pointer text-[#FFC107] hover:scale-110 transition-transform"
+                                    />
+                                    <RiDeleteBin6Line
+                                        size={24}
+                                        onClick={() => openDelete(item._id)}
+                                        className="cursor-pointer text-[#D93D04] hover:scale-110 transition-transform"
+                                    />
                                 </div>
                             </div>
-
-                            {/* Action Buttons */}
-                            <div className="flex flex-col gap-2 mt-2">
-                                <CiEdit
-                                    size={26}
-                                    onClick={() => openEdit(item)}
-                                    className="cursor-pointer text-[#FFC107]"
-                                />
-                                <RiDeleteBin6Line
-                                    size={24}
-                                    onClick={() => openDelete(item.id)}
-                                    className="cursor-pointer text-[#D93D04]"
-                                />
-                            </div>
-                        </div>
-                    ))}
+                        ))
+                    )}
+                    {!isLoading && faqs?.length === 0 && (
+                        <div className="text-center text-[#757575] mt-10">No FAQs found for {activeTab}.</div>
+                    )}
                 </div>
 
                 {/* ---------------- Add Modal ---------------- */}
                 <Modal
                     centered
                     open={isAddOpen}
-                    onCancel={() => setIsAddOpen(false)}
+                    onCancel={() => {
+                        setIsAddOpen(false);
+                        addForm.resetFields();
+                    }}
                     onOk={handleAdd}
                     okText="Save"
-                    width={450}
+                    width={500}
+                    className="faq-modal"
                 >
-                    <h2 className="text-lg font-semibold mb-4">Add FAQ</h2>
+                    <h2 className="text-lg font-semibold mb-4 text-white">
+                        Add FAQ ({activeTab.charAt(0).toUpperCase() + activeTab.slice(1)})
+                    </h2>
 
                     <Form form={addForm} layout="vertical">
-                        <Form.Item name="question" label="Question" rules={[{ required: true }]}>
-                            <Input placeholder="Enter question" />
+                        <Form.Item
+                            name="question"
+                            label={<span className="text-white">Question</span>}
+                            rules={[{ required: true, message: 'Please enter question' }]}
+                        >
+                            <Input placeholder="Enter question" className="bg-[#1f1f1f] text-white border-gray-600" />
                         </Form.Item>
 
-                        <Form.Item name="answer" label="Answer" rules={[{ required: true }]}>
-                            <Input.TextArea rows={4} placeholder="Enter answer" />
+                        <Form.Item
+                            name="answer"
+                            label={<span className="text-white">Answer</span>}
+                            rules={[{ required: true, message: 'Please enter answer' }]}
+                        >
+                            <Input.TextArea
+                                rows={4}
+                                placeholder="Enter answer"
+                                className="bg-[#1f1f1f] text-white border-gray-600"
+                            />
                         </Form.Item>
                     </Form>
                 </Modal>
@@ -168,20 +260,33 @@ const FAQ = () => {
                 <Modal
                     centered
                     open={isEditOpen}
-                    onCancel={() => setIsEditOpen(false)}
+                    onCancel={() => {
+                        setIsEditOpen(false);
+                        editForm.resetFields();
+                        setSelectedFaq(null);
+                    }}
                     onOk={handleEdit}
                     okText="Update"
-                    width={450}
+                    width={500}
+                    className="faq-modal"
                 >
-                    <h2 className="text-lg font-semibold mb-4">Update FAQ</h2>
+                    <h2 className="text-lg font-semibold mb-4 text-white">Update FAQ</h2>
 
                     <Form form={editForm} layout="vertical">
-                        <Form.Item name="question" label="Question" rules={[{ required: true }]}>
-                            <Input />
+                        <Form.Item
+                            name="question"
+                            label={<span className="text-white">Question</span>}
+                            rules={[{ required: true }]}
+                        >
+                            <Input className="bg-[#1f1f1f] text-white border-gray-600" />
                         </Form.Item>
 
-                        <Form.Item name="answer" label="Answer" rules={[{ required: true }]}>
-                            <Input.TextArea rows={4} />
+                        <Form.Item
+                            name="answer"
+                            label={<span className="text-white">Answer</span>}
+                            rules={[{ required: true }]}
+                        >
+                            <Input.TextArea rows={4} className="bg-[#1f1f1f] text-white border-gray-600" />
                         </Form.Item>
                     </Form>
                 </Modal>

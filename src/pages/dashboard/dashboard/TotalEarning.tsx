@@ -1,8 +1,7 @@
-import { useState } from 'react';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { Card, ConfigProvider, DatePicker } from 'antd';
-import { earningsData } from '../../../demo-data/home-data';
 import { FaChevronDown } from 'react-icons/fa6';
+import dayjs from 'dayjs';
 
 const CustomLegend = () => {
     return (
@@ -15,14 +14,18 @@ const CustomLegend = () => {
     );
 };
 
-const TotalEarning = () => {
-    const [selectedYear, setSelectedYear] = useState('2025');
-    console.log(selectedYear);
+interface TotalEarningProps {
+    data: { month: string; totalAmount: number }[];
+    year: string;
+    setYear: (year: string) => void;
+}
+
+const TotalEarning: React.FC<TotalEarningProps> = ({ data, year, setYear }) => {
     return (
         <div>
             <Card className="rounded-lg shadow-sm bg-bg border-0">
                 <div className="flex justify-between items-center mb-4 gap-4">
-                    <h2 className="text-lg font-semibold text-[#f1f1f1]">Key Activity</h2>
+                    <h2 className="text-lg font-semibold text-[#f1f1f1]">Revenue</h2>
                     <div className="flex gap-2">
                         <CustomLegend />
                         {/* Year Dropdown */}
@@ -30,8 +33,8 @@ const TotalEarning = () => {
                             theme={{
                                 token: {
                                     colorPrimary: '#00BCD1',
-                                    colorBgContainer: '#00BCD1',
-                                    colorBgElevated: '#00BCD1',
+                                    colorBgContainer: '#0A0B0D',
+                                    colorBgElevated: '#0A0B0D',
                                     colorBorder: '#00BCD1',
                                     colorText: '#fff',
                                     colorTextPlaceholder: '#fff',
@@ -42,19 +45,21 @@ const TotalEarning = () => {
                             <DatePicker
                                 className="!cursor-pointer"
                                 picker="year"
+                                value={dayjs(year, 'YYYY')}
                                 suffixIcon={<FaChevronDown className="text-gray-500 text-sm" />}
                                 onChange={(_, dateString) => {
                                     if (typeof dateString === 'string') {
-                                        setSelectedYear(dateString);
+                                        setYear(dateString);
                                     }
                                 }}
+                                allowClear={false}
                             />
                         </ConfigProvider>
                     </div>
                 </div>
 
                 <ResponsiveContainer width="100%" height={230}>
-                    <AreaChart data={earningsData}>
+                    <AreaChart data={data}>
                         <defs>
                             <linearGradient id="colorEarnings" x1="0" y1="0" x2="0" y2="1">
                                 <stop offset="5%" stopColor="#00BCD1" stopOpacity={0.8} />
@@ -77,7 +82,7 @@ const TotalEarning = () => {
                         <Area
                             type="monotone"
                             name="Revenue"
-                            dataKey="value"
+                            dataKey="totalAmount"
                             stroke="#00BCD1"
                             strokeWidth={2}
                             fillOpacity={1}

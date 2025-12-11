@@ -152,7 +152,7 @@ export default function Users({ dashboard }: { dashboard?: boolean }) {
                 <div className="flex items-center justify-between mb-4">
                     <HeaderTitle title={dashboard ? 'All Users' : 'Users List'} className="" />
                     {dashboard ? (
-                        <Link className="text-white" to="/dashboard/users">
+                        <Link className="text-white" to="/users">
                             View All
                         </Link>
                     ) : (

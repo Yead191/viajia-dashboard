@@ -28,7 +28,6 @@ export default function NoteTab({
         disabled: isDesabled,
         style: {
             background: '#1C1C1E',
-            borderRadius: '17px',
             border: 'none',
             boxShadow: 'none',
             color: 'white',

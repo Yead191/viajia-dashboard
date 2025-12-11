@@ -88,12 +88,6 @@ const sidebarItems: TSidebarItem[] = [
                 path: 'privacy-policy',
                 icon: <LuClipboardList size={20} />,
             },
-            {
-                key: 'disclaimer',
-                label: 'Disclaimer',
-                path: 'disclaimer',
-                icon: <BsPatchQuestion size={20} />,
-            },
         ],
     },
 ];

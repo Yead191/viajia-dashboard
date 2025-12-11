@@ -5,7 +5,7 @@ const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
     const location = useLocation();
 
     const { data: profile, isLoading, isFetching, isError } = useGetProfileQuery(undefined);
-
+    console.log(profile);
     if (isLoading || isFetching) {
         return <div>Loading...</div>;
     }
@@ -14,7 +14,7 @@ const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
         return <Navigate to="/login" state={{ from: location }} />;
     }
 
-    if (profile?.data?.role === 'admin' || profile?.data?.role === 'super_admin') {
+    if (profile?.data?.role === 'SUPER_ADMIN' || profile?.data?.role === 'ADMIN') {
         return children;
     }
 

@@ -1,26 +1,41 @@
-import { api } from "../api/baseApi";
+import { api } from '../api/baseApi';
 
 const notificationSlice = api.injectEndpoints({
-    endpoints: (builder) => ({
-        getNotification: builder.query({
-            query: ({query}:{query?:string}) => ({
-                url: `/notificaiton?`+query,
+    endpoints: (build) => ({
+        // get Notification
+        getNotification: build.query({
+            query: ({ page, limit }) => ({
+                url: '/notification',
+                method: 'GET',
+                credentials: 'include',
+                params: {
+                    page,
+                    limit,
+                },
             }),
+            providesTags: ['Notifications'],
+            keepUnusedDataFor: 0,
         }),
-
-        changeStatusNotification: builder.mutation({
-            query: ({id}:{id:string}) => ({
-                method: "PATCH",
-                url: `/notificaiton/${id}/seen`,
-            }),
-        }),
-        readAllNotification: builder.mutation({
+        // read all notification
+        readAllNotification: build.mutation({
             query: () => ({
-                method: "PATCH",
-                url: `/notificaiton/read-all`,
+                url: '/notification/read-all',
+                method: 'PATCH',
+                credentials: 'include',
             }),
-        })
+            invalidatesTags: ['Notifications'],
+        }),
+        // read one notification
+        readOneNotification: build.mutation({
+            query: (id) => ({
+                url: `/notification/read/${id}`,
+                method: 'PATCH',
+                credentials: 'include',
+            }),
+            invalidatesTags: ['Notifications'],
+        }),
     }),
-})
+});
 
-export const { useGetNotificationQuery, useChangeStatusNotificationMutation, useReadAllNotificationMutation } = notificationSlice
+export const { useGetNotificationQuery, useReadAllNotificationMutation, useReadOneNotificationMutation } =
+    notificationSlice;

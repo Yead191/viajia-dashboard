@@ -18,6 +18,7 @@ import Bookings from '../pages/dashboard/Bookings';
 import FAQ from '../pages/dashboard/faq';
 import Subscription from '../pages/dashboard/package';
 import SubscriberList from '../pages/dashboard/subscriber-list';
+import PrivateRoute from '../provider/PrivateRoutes';
 
 const router = createBrowserRouter([
     {
@@ -25,19 +26,110 @@ const router = createBrowserRouter([
         element: <App />,
         errorElement: <ErrorPage />,
         children: [
-            { path: '', element: <Dashboard /> },
-            { path: 'users', element: <Users /> },
-            { path: 'bookings', element: <Bookings /> },
-            { path: 'subscriptions', element: <Subscription /> },
-            { path: 'subscriber-list', element: <SubscriberList /> },
-            { path: 'transactions', element: <Transactions /> },
-            { path: 'profile', element: <Profile /> },
-            { path: 'notification', element: <Notification /> },
-            { path: 'privacy-policy', element: <PrivacyPolicy /> },
-            { path: 'terms-and-condition', element: <TermsAndCondition /> },
-            { path: 'about-us', element: <AboutUs /> },
-            { path: 'disclaimer', element: <Disclaimer /> },
-            { path: 'faq', element: <FAQ /> },
+            {
+                path: '',
+                element: (
+                    <PrivateRoute>
+                        <Dashboard />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: 'users',
+                element: (
+                    <PrivateRoute>
+                        <Users />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: 'bookings',
+                element: (
+                    <PrivateRoute>
+                        <Bookings />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: 'subscriptions',
+                element: (
+                    <PrivateRoute>
+                        <Subscription />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: 'subscriber-list',
+                element: (
+                    <PrivateRoute>
+                        <SubscriberList />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: 'transactions',
+                element: (
+                    <PrivateRoute>
+                        <Transactions />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: 'profile',
+                element: (
+                    <PrivateRoute>
+                        <Profile />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: 'notification',
+                element: (
+                    <PrivateRoute>
+                        <Notification />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: 'privacy-policy',
+                element: (
+                    <PrivateRoute>
+                        <PrivacyPolicy />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: 'terms-and-condition',
+                element: (
+                    <PrivateRoute>
+                        <TermsAndCondition />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: 'about-us',
+                element: (
+                    <PrivateRoute>
+                        <AboutUs />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: 'disclaimer',
+                element: (
+                    <PrivateRoute>
+                        <Disclaimer />
+                    </PrivateRoute>
+                ),
+            },
+            {
+                path: 'faq',
+                element: (
+                    <PrivateRoute>
+                        <FAQ />
+                    </PrivateRoute>
+                ),
+            },
         ],
     },
     { path: '/login', element: <Login /> },
